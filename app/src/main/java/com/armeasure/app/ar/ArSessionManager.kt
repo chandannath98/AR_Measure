@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.MotionEvent
 import androidx.compose.runtime.*
 import com.armeasure.app.model.AnchorPoint
+import com.armeasure.app.model.MeasureMode
 import com.armeasure.app.model.MeasurementResult
 import com.armeasure.app.model.PlacementState
 import com.google.ar.core.*
 import com.google.ar.core.exceptions.*
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 private const val TAG = "ArSessionManager"
@@ -21,6 +23,8 @@ class ArSessionManager(private val context: Context) {
 
     var session: Session? by mutableStateOf(null)
         private set
+
+    var currentMode: MeasureMode = MeasureMode.MEASURE
 
     private var displayRotationHelper: DisplayRotationHelper? = null
 
@@ -39,6 +43,9 @@ class ArSessionManager(private val context: Context) {
     var trackingState: TrackingState by mutableStateOf(TrackingState.STOPPED)
         private set
 
+    var latestHitPose: Pose? by mutableStateOf(null)
+        private set
+
     // ── Session setup ──────────────────────────────────────────────────────────
 
     fun createSession(activity: Activity): Boolean {
@@ -53,15 +60,15 @@ class ArSessionManager(private val context: Context) {
                 lightEstimationMode = Config.LightEstimationMode.ENVIRONMENTAL_HDR
                 focusMode = Config.FocusMode.AUTO
                 updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
+                
+                if (s.isDepthModeSupported(Config.DepthMode.AUTOMATIC)) {
+                    depthMode = Config.DepthMode.AUTOMATIC
+                }
             }
             s.configure(config)
             session = s
             displayRotationHelper = DisplayRotationHelper(context)
             true
-        } catch (e: UnavailableArcoreNotInstalledException) {
-            Log.e(TAG, "ARCore not installed", e); false
-        } catch (e: UnavailableDeviceNotCompatibleException) {
-            Log.e(TAG, "Device not compatible", e); false
         } catch (e: Exception) {
             Log.e(TAG, "Session creation failed", e); false
         }
@@ -107,6 +114,9 @@ class ArSessionManager(private val context: Context) {
             val frame = s.update()
             trackingState = frame.camera.trackingState
 
+            // Find current hit point at screen center for reticle and line preview
+            updateLatestHitPose(frame)
+
             // Advance to READY once we detect a plane
             if (placementState == PlacementState.SCANNING &&
                 trackingState == TrackingState.TRACKING &&
@@ -116,9 +126,25 @@ class ArSessionManager(private val context: Context) {
             }
             frame
         } catch (e: Exception) {
-            // Log.e(TAG, "Session update failed", e) // Avoid flooding logs
             null
         }
+    }
+
+    private fun updateLatestHitPose(frame: Frame) {
+        val width = displayRotationHelper?.viewportWidth ?: 0
+        val height = displayRotationHelper?.viewportHeight ?: 0
+        if (width == 0 || height == 0) return
+
+        val hitResults = frame.hitTest(width / 2f, height / 2f)
+        latestHitPose = hitResults.firstOrNull { hit ->
+            val trackable = hit.trackable
+            when {
+                trackable is Plane -> trackable.trackingState == TrackingState.TRACKING && trackable.isPoseInPolygon(hit.hitPose)
+                trackable is Point -> trackable.orientationMode == Point.OrientationMode.ESTIMATED_SURFACE_NORMAL
+                trackable is DepthPoint -> true
+                else -> false
+            }
+        }?.hitPose
     }
 
     // ── Touch / placement ──────────────────────────────────────────────────────
@@ -130,16 +156,19 @@ class ArSessionManager(private val context: Context) {
     fun onTap(tap: MotionEvent, frame: Frame, screenW: Int, screenH: Int): Boolean {
         if (trackingState != TrackingState.TRACKING) return false
 
-        val hitResult = frame.hitTest(tap).firstOrNull { hit ->
+        val hitResults = frame.hitTest(tap)
+        val hitResult = hitResults.firstOrNull { hit ->
             val trackable = hit.trackable
-            (trackable is Plane && trackable.isPoseInPolygon(hit.hitPose) &&
-                    trackable.trackingState == TrackingState.TRACKING) ||
-                    (trackable is Point && trackable.orientationMode == Point.OrientationMode.ESTIMATED_SURFACE_NORMAL)
+            when {
+                trackable is Plane -> trackable.trackingState == TrackingState.TRACKING && trackable.isPoseInPolygon(hit.hitPose)
+                trackable is Point -> trackable.orientationMode == Point.OrientationMode.ESTIMATED_SURFACE_NORMAL
+                trackable is DepthPoint -> true
+                else -> false
+            }
         } ?: return false
 
         return when (placementState) {
             PlacementState.READY, PlacementState.MEASURED -> {
-                // Start fresh
                 startAnchor?.anchor?.detach()
                 endAnchor?.anchor?.detach()
                 startAnchor = AnchorPoint(hitResult.createAnchor(), tap.x, tap.y)
@@ -158,11 +187,6 @@ class ArSessionManager(private val context: Context) {
         }
     }
 
-    /** Called on tap when in HEIGHT mode – uses two y-positions on the same x. */
-    fun onHeightTap(tap: MotionEvent, frame: Frame): Boolean {
-        return onTap(tap, frame, 0, 0)
-    }
-
     fun reset() {
         startAnchor?.anchor?.detach()
         endAnchor?.anchor?.detach()
@@ -178,10 +202,16 @@ class ArSessionManager(private val context: Context) {
     private fun computeMeasurement() {
         val start = startAnchor?.anchor?.pose ?: return
         val end   = endAnchor?.anchor?.pose   ?: return
-        val dx = start.tx() - end.tx()
-        val dy = start.ty() - end.ty()
-        val dz = start.tz() - end.tz()
-        val distance = sqrt(dx * dx + dy * dy + dz * dz)
+        
+        val distance = if (currentMode == MeasureMode.HEIGHT) {
+            abs(start.ty() - end.ty())
+        } else {
+            val dx = start.tx() - end.tx()
+            val dy = start.ty() - end.ty()
+            val dz = start.tz() - end.tz()
+            sqrt(dx * dx + dy * dy + dz * dz)
+        }
+
         lastMeasurement = MeasurementResult(distance, start, end)
     }
 }

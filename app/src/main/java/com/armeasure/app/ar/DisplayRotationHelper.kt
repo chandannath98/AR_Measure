@@ -18,8 +18,10 @@ class DisplayRotationHelper(context: Context) : DisplayManager.DisplayListener {
         .defaultDisplay
 
     private var viewportChanged = false
-    private var viewportWidth  = 0
-    private var viewportHeight = 0
+    var viewportWidth  = 0
+        private set
+    var viewportHeight = 0
+        private set
 
     var rotation: Int = display.rotation
         private set

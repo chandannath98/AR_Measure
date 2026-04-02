@@ -5,6 +5,7 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.armeasure.app.ar.ArSessionManager
 import com.armeasure.app.model.MeasureMode
@@ -42,11 +44,17 @@ fun MainMeasureScreen(vm: MeasureViewModel = viewModel()) {
     // Camera permission
     val cameraPermission = rememberPermissionState(android.Manifest.permission.CAMERA)
 
-    // History drawer state
+    // UI state
     var showHistory by remember { mutableStateOf(false) }
+    var showInstructions by remember { mutableStateOf(true) }
 
     // AR session
     val sessionManager = remember { ArSessionManager(context) }
+
+    // Sync mode from UI state to SessionManager
+    LaunchedEffect(uiState.mode) {
+        sessionManager.currentMode = uiState.mode
+    }
 
     LaunchedEffect(cameraPermission.status.isGranted) {
         if (cameraPermission.status.isGranted) {
@@ -118,12 +126,21 @@ fun MainMeasureScreen(vm: MeasureViewModel = viewModel()) {
             onModeSelected = { mode ->
                 sessionManager.reset()
                 vm.setMode(mode)
+                showInstructions = true // Show instructions when mode changes
             },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .navigationBarsPadding()
                 .padding(bottom = 24.dp)
         )
+
+        // ── Instructions Overlay ───────────────────────────────────────────────
+        if (showInstructions && uiState.mode != MeasureMode.LEVEL) {
+            InstructionsOverlay(
+                mode = uiState.mode,
+                onDismiss = { showInstructions = false }
+            )
+        }
 
         // ── History drawer ─────────────────────────────────────────────────────
         HistoryDrawer(
@@ -132,6 +149,84 @@ fun MainMeasureScreen(vm: MeasureViewModel = viewModel()) {
             visible      = showHistory,
             onDismiss    = { showHistory = false }
         )
+    }
+}
+
+@Composable
+fun InstructionsOverlay(mode: MeasureMode, onDismiss: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.7f))
+            .clickable { onDismiss() },
+        contentAlignment = Alignment.Center
+    ) {
+        Card(
+            modifier = Modifier
+                .padding(32.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = AppColors.Surface)
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Icon(
+                    imageVector = if (mode == MeasureMode.HEIGHT) Icons.Default.Height else Icons.Default.Straighten,
+                    contentDescription = null,
+                    tint = AppColors.Accent,
+                    modifier = Modifier.size(48.dp)
+                )
+                
+                Text(
+                    text = if (mode == MeasureMode.HEIGHT) "How to measure height" else "How to measure distance",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = AppColors.TextPrimary
+                )
+
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    InstructionItem("1", "Stand 2-3 meters back from the subject.")
+                    InstructionItem("2", "Slowly scan the floor until a grid appears.")
+                    if (mode == MeasureMode.HEIGHT) {
+                        InstructionItem("3", "Tap the floor at the person's heels.")
+                        InstructionItem("4", "Slowly tilt up and tap the top of their head.")
+                    } else {
+                        InstructionItem("3", "Tap the floor at the starting point.")
+                        InstructionItem("4", "Move the phone and tap at the end point.")
+                    }
+                }
+
+                Button(
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.Accent)
+                ) {
+                    Text("GOT IT")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun InstructionItem(number: String, text: String) {
+    Row(
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(24.dp)
+                .clip(CircleShape)
+                .background(AppColors.Accent.copy(alpha = 0.2f)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(number, color = AppColors.Accent, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+        }
+        Text(text, color = AppColors.TextSecondary, style = MaterialTheme.typography.bodyMedium)
     }
 }
 
@@ -232,7 +327,7 @@ fun MeasureArOverlay(
         AnimatedVisibility(
             visible  = distanceFormatted != null,
             enter    = scaleIn(spring(Spring.DampingRatioMediumBouncy)) + fadeIn(),
-            exit     = scaleOut() + fadeOut(),
+            exit    = scaleOut() + fadeOut(),
             modifier = Modifier.align(Alignment.Center).offset(y = (-90).dp)
         ) {
             distanceFormatted?.let { MeasurementBubble(it) }

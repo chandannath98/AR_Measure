@@ -6,6 +6,7 @@ import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.util.Log
 import android.view.MotionEvent
+import com.armeasure.app.model.MeasureMode
 import com.armeasure.app.model.PlacementState
 import com.google.ar.core.*
 import java.io.IOException
@@ -67,7 +68,7 @@ class ArRenderer(
 
         val session = sessionManager.session ?: return
         
-        // Ensure texture is set (it might need re-setting if session was recreated)
+        // Ensure texture is set
         sessionManager.setCameraTextureId(backgroundRenderer.textureId)
         
         val frame = sessionManager.update() ?: return
@@ -101,18 +102,37 @@ class ArRenderer(
         pointRenderer.draw(viewMtx, projMtx)
         pointCloud.release()
 
-        // ── Draw anchors ───────────────────────────────────────────────────────
+        // ── Draw anchors and lines ─────────────────────────────────────────────
         val startAnchor = sessionManager.startAnchor?.anchor
         val endAnchor   = sessionManager.endAnchor?.anchor
+        val latestHitPose = sessionManager.latestHitPose
 
-        startAnchor?.let { if (it.trackingState == TrackingState.TRACKING) anchorRenderer.drawDot(it.pose, viewMtx, projMtx, isStart = true) }
-        endAnchor?.let   { if (it.trackingState == TrackingState.TRACKING) anchorRenderer.drawDot(it.pose, viewMtx, projMtx, isStart = false) }
+        // Draw start dot
+        startAnchor?.let { 
+            if (it.trackingState == TrackingState.TRACKING) {
+                anchorRenderer.drawDot(it.pose, viewMtx, projMtx, isStart = true)
+            }
+        }
+        
+        // Draw end dot
+        endAnchor?.let { 
+            if (it.trackingState == TrackingState.TRACKING) {
+                anchorRenderer.drawDot(it.pose, viewMtx, projMtx, isStart = false)
+            }
+        }
 
+        // Draw final line
         if (startAnchor != null && endAnchor != null &&
             startAnchor.trackingState == TrackingState.TRACKING &&
             endAnchor.trackingState   == TrackingState.TRACKING
         ) {
             anchorRenderer.drawLine(startAnchor.pose, endAnchor.pose, viewMtx, projMtx)
+        } 
+        // OR draw preview line if we only have one point and a current hit
+        else if (startAnchor != null && endAnchor == null && latestHitPose != null &&
+                 startAnchor.trackingState == TrackingState.TRACKING &&
+                 sessionManager.placementState == PlacementState.FIRST_POINT_SET) {
+            anchorRenderer.drawLine(startAnchor.pose, latestHitPose, viewMtx, projMtx)
         }
     }
 }
