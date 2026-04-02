@@ -1,0 +1,211 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.armeasure.app"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <!-- Camera -->
+12    <uses-permission android:name="android.permission.CAMERA" />
+12-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:5:5-65
+12-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:5:22-62
+13
+14    <!-- Internet for AR services -->
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:8:5-67
+15-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:8:22-64
+16
+17    <!-- Sensor for level tool -->
+18    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+18-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:11:5-85
+18-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:11:22-82
+19
+20    <!-- AR Required: only install on AR-capable devices -->
+21    <uses-feature
+21-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:14:5-87
+22        android:name="android.hardware.camera.ar"
+22-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:14:19-60
+23        android:required="true" />
+23-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:14:61-84
+24    <uses-feature
+24-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:15:5-84
+25        android:name="android.hardware.camera"
+25-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:15:19-57
+26        android:required="true" />
+26-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:15:58-81
+27
+28    <permission
+28-->[androidx.core:core:1.15.0] /home/chandannath/.gradle/caches/8.10.2/transforms/ddeaa1cf427914b997813d4614e5cfb0/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+29        android:name="com.armeasure.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+29-->[androidx.core:core:1.15.0] /home/chandannath/.gradle/caches/8.10.2/transforms/ddeaa1cf427914b997813d4614e5cfb0/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+30        android:protectionLevel="signature" />
+30-->[androidx.core:core:1.15.0] /home/chandannath/.gradle/caches/8.10.2/transforms/ddeaa1cf427914b997813d4614e5cfb0/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+31
+32    <uses-permission android:name="com.armeasure.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+32-->[androidx.core:core:1.15.0] /home/chandannath/.gradle/caches/8.10.2/transforms/ddeaa1cf427914b997813d4614e5cfb0/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+32-->[androidx.core:core:1.15.0] /home/chandannath/.gradle/caches/8.10.2/transforms/ddeaa1cf427914b997813d4614e5cfb0/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+33
+34    <queries>
+34-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:20:5-27:15
+35        <package android:name="com.google.ar.core" />
+35-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:21:9-54
+35-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:21:18-51
+36        <package android:name="com.android.vending" />
+36-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:22:9-55
+36-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:22:18-52
+37
+38        <intent>
+38-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:24:9-26:18
+39            <action android:name="com.google.android.play.core.install.BIND_INSTALL_SERVICE" />
+39-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:25:13-96
+39-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:25:21-93
+40        </intent>
+41    </queries>
+42
+43    <application
+43-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:17:5-37:19
+44        android:allowBackup="true"
+44-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:18:9-35
+45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+45-->[androidx.core:core:1.15.0] /home/chandannath/.gradle/caches/8.10.2/transforms/ddeaa1cf427914b997813d4614e5cfb0/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+46        android:debuggable="true"
+47        android:extractNativeLibs="false"
+48        android:label="@string/app_name"
+48-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:19:9-41
+49        android:supportsRtl="true"
+49-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:20:9-35
+50        android:testOnly="true"
+51        android:theme="@style/Theme.ARMeasureApp" >
+51-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:21:9-50
+52
+53        <!-- ARCore meta-data: marks app as AR Required -->
+54        <meta-data
+54-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:24:9-26:40
+55            android:name="com.google.ar.core"
+55-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:25:13-46
+56            android:value="required" />
+56-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:26:13-37
+57
+58        <activity
+58-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:28:9-36:20
+59            android:name="com.armeasure.app.MainActivity"
+59-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:29:13-41
+60            android:exported="true"
+60-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:30:13-36
+61            android:screenOrientation="portrait" >
+61-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:31:13-49
+62            <intent-filter>
+62-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:32:13-35:29
+63                <action android:name="android.intent.action.MAIN" />
+63-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:33:17-69
+63-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:33:25-66
+64
+65                <category android:name="android.intent.category.LAUNCHER" />
+65-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:34:17-77
+65-->/home/chandannath/Documents/ARMeasureApp/app/src/main/AndroidManifest.xml:34:27-74
+66            </intent-filter>
+67        </activity>
+68        <activity
+68-->[androidx.compose.ui:ui-test-manifest:1.7.6] /home/chandannath/.gradle/caches/8.10.2/transforms/98e1a5ac3544ec943b06e9cc6fa87994/transformed/jetified-ui-test-manifest-1.7.6/AndroidManifest.xml:23:9-25:39
+69            android:name="androidx.activity.ComponentActivity"
+69-->[androidx.compose.ui:ui-test-manifest:1.7.6] /home/chandannath/.gradle/caches/8.10.2/transforms/98e1a5ac3544ec943b06e9cc6fa87994/transformed/jetified-ui-test-manifest-1.7.6/AndroidManifest.xml:24:13-63
+70            android:exported="true" />
+70-->[androidx.compose.ui:ui-test-manifest:1.7.6] /home/chandannath/.gradle/caches/8.10.2/transforms/98e1a5ac3544ec943b06e9cc6fa87994/transformed/jetified-ui-test-manifest-1.7.6/AndroidManifest.xml:25:13-36
+71        <activity
+71-->[androidx.compose.ui:ui-tooling-android:1.7.6] /home/chandannath/.gradle/caches/8.10.2/transforms/8b2ec5293507db87ce84b33180eec58e/transformed/jetified-ui-tooling-release/AndroidManifest.xml:23:9-25:39
+72            android:name="androidx.compose.ui.tooling.PreviewActivity"
+72-->[androidx.compose.ui:ui-tooling-android:1.7.6] /home/chandannath/.gradle/caches/8.10.2/transforms/8b2ec5293507db87ce84b33180eec58e/transformed/jetified-ui-tooling-release/AndroidManifest.xml:24:13-71
+73            android:exported="true" />
+73-->[androidx.compose.ui:ui-tooling-android:1.7.6] /home/chandannath/.gradle/caches/8.10.2/transforms/8b2ec5293507db87ce84b33180eec58e/transformed/jetified-ui-tooling-release/AndroidManifest.xml:25:13-36
+74
+75        <provider
+75-->[androidx.emoji2:emoji2:1.3.0] /home/chandannath/.gradle/caches/8.10.2/transforms/6447dcfcb1c5b26899694314ddc93b77/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+76            android:name="androidx.startup.InitializationProvider"
+76-->[androidx.emoji2:emoji2:1.3.0] /home/chandannath/.gradle/caches/8.10.2/transforms/6447dcfcb1c5b26899694314ddc93b77/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+77            android:authorities="com.armeasure.app.androidx-startup"
+77-->[androidx.emoji2:emoji2:1.3.0] /home/chandannath/.gradle/caches/8.10.2/transforms/6447dcfcb1c5b26899694314ddc93b77/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+78            android:exported="false" >
+78-->[androidx.emoji2:emoji2:1.3.0] /home/chandannath/.gradle/caches/8.10.2/transforms/6447dcfcb1c5b26899694314ddc93b77/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+79            <meta-data
+79-->[androidx.emoji2:emoji2:1.3.0] /home/chandannath/.gradle/caches/8.10.2/transforms/6447dcfcb1c5b26899694314ddc93b77/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+80                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+80-->[androidx.emoji2:emoji2:1.3.0] /home/chandannath/.gradle/caches/8.10.2/transforms/6447dcfcb1c5b26899694314ddc93b77/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+81                android:value="androidx.startup" />
+81-->[androidx.emoji2:emoji2:1.3.0] /home/chandannath/.gradle/caches/8.10.2/transforms/6447dcfcb1c5b26899694314ddc93b77/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+82            <meta-data
+82-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/chandannath/.gradle/caches/8.10.2/transforms/5301c2ad425713d438bc119f07b29884/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+83                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+83-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/chandannath/.gradle/caches/8.10.2/transforms/5301c2ad425713d438bc119f07b29884/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+84                android:value="androidx.startup" />
+84-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/chandannath/.gradle/caches/8.10.2/transforms/5301c2ad425713d438bc119f07b29884/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+85            <meta-data
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+86                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+86-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+87                android:value="androidx.startup" />
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+88        </provider> <!-- The minimal version code of ARCore APK required for an app using this SDK. -->
+89        <meta-data
+89-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:32:9-34:41
+90            android:name="com.google.ar.core.min_apk_version"
+90-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:33:13-62
+91            android:value="242040000" /> <!-- This activity is critical for installing ARCore when it is not already present. -->
+91-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:34:13-38
+92        <activity
+92-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:36:9-42:80
+93            android:name="com.google.ar.core.InstallActivity"
+93-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:37:13-62
+94            android:configChanges="keyboardHidden|orientation|screenSize"
+94-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:38:13-74
+95            android:excludeFromRecents="true"
+95-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:39:13-46
+96            android:exported="false"
+96-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:40:13-37
+97            android:launchMode="singleTop"
+97-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:41:13-43
+98            android:theme="@android:style/Theme.Material.Light.Dialog.Alert" />
+98-->[com.google.ar:core:1.46.0] /home/chandannath/.gradle/caches/8.10.2/transforms/73b7d39136ee22148e6eac94d913425f/transformed/jetified-core-1.46.0/AndroidManifest.xml:42:13-77
+99
+100        <receiver
+100-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+101            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+101-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+102            android:directBootAware="false"
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+103            android:enabled="true"
+103-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+104            android:exported="true"
+104-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+105            android:permission="android.permission.DUMP" >
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+106            <intent-filter>
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+107                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+107-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+107-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+108            </intent-filter>
+109            <intent-filter>
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+110                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+111            </intent-filter>
+112            <intent-filter>
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+113                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+114            </intent-filter>
+115            <intent-filter>
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+116                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/chandannath/.gradle/caches/8.10.2/transforms/e39707e1a17ae21521165b017c3270f9/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+117            </intent-filter>
+118        </receiver>
+119    </application>
+120
+121</manifest>

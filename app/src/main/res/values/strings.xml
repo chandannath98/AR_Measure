@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AR Measure</string>
+    <string name="permission_camera_rationale">Camera permission is required for AR measurement.</string>
+    <string name="ar_not_supported">This device does not support ARCore.</string>
+    <string name="mode_measure">Measure</string>
+    <string name="mode_height">Height</string>
+    <string name="mode_level">Level</string>
+    <string name="scan_hint">Move your phone to detect surfaces</string>
+    <string name="tap_start">Tap to place the start point</string>
+    <string name="tap_end">Move to the endpoint, then tap</string>
+    <string name="tap_again">Tap anywhere to measure again</string>
+</resources>

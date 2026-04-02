@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.armeasure.app-mergeDebugResources-53:/values-v30/values-v30.xml",
+            "map": [
+                {
+                    "source": "/home/chandannath/.gradle/caches/8.10.2/transforms/7cc4ff9c75c4a158317d302b79b788db/transformed/jetified-material3-release/res/values-v30/values-v30.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "72",
+                        "endOffsets": "123"
+                    }
+                }
+            ]
+        }
+    ]
+}

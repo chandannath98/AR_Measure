@@ -1,0 +1,17 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_launcher_background
+mipmap ic_launcher
+mipmap ic_launcher_foreground
+mipmap ic_launcher_round
+string app_name
+string ar_not_supported
+string mode_height
+string mode_level
+string mode_measure
+string permission_camera_rationale
+string scan_hint
+string tap_again
+string tap_end
+string tap_start
+style Theme.ARMeasureApp
