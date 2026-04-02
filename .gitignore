@@ -1,0 +1,53 @@
+# --- Build ---
+build/
+out/
+.gradle/
+
+# --- IntelliJ / Android Studio ---
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# --- Kotlin ---
+*.kotlin_module
+
+# --- Logs ---
+*.log
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Environment / local config ---
+local.properties
+.env
+
+# --- Gradle Wrapper (keep JAR, ignore others if needed) ---
+gradle-app.setting
+!gradle-wrapper.jar
+
+# --- Generated files ---
+captures/
+.externalNativeBuild/
+.cxx/
+
+# --- Android specific (if applicable) ---
+*.apk
+*.ap_
+*.aab
+
+# --- JVM crash logs ---
+hs_err_pid*
+replay_pid*
+
+# --- Test outputs ---
+/test-results/
+/reports/
+
+# --- Coverage ---
+/coverage/
+*.ec
+
+# --- Kotlin Multiplatform (optional) ---
+.konan/
