@@ -51,3 +51,4 @@ replay_pid*
 
 # --- Kotlin Multiplatform (optional) ---
 .konan/
+*.hprof
